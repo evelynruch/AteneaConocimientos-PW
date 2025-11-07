@@ -15,8 +15,8 @@ export class PaginaRegistro {
     readonly buttonShowPassword: Locator;
     readonly buttonShowConfirmPassword: Locator;
     readonly buttonModalIrIniciarSesion: Locator;
-    readonly buttonModalCerrar: Locator;    
-    readonly buttonIrAIniciarSesion: Locator;
+    // readonly buttonModalCerrar: Locator;    
+    // readonly buttonIrAIniciarSesion: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -35,7 +35,7 @@ export class PaginaRegistro {
         });
         this.buttonShowPassword = page.getByRole('button', { name: 'Mostrar contraseña' }).first();
         this.buttonShowConfirmPassword = page.getByRole('button', { name: 'Mostrar contraseña' }).last();
-        this.buttonModalIrIniciarSesion = page.getByRole('button', { name: 'Ir a iniciar sesión' });        
+        this.buttonModalIrIniciarSesion = page.getByRole('button', { name: 'Ir a iniciar sesión' });
     }
 
     async ingresarNombre(nombre: string) {
@@ -95,7 +95,7 @@ export class PaginaRegistro {
         await this.checkTerminos();
         await this.clickBotonRegistrarse();
     }
-    
+
     async clickButtonModalIrIniciarSesion() {
         await this.buttonModalIrIniciarSesion.click();
     }
