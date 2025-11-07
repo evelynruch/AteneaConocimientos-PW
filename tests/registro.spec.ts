@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import dotenv from 'dotenv';
 import { PaginaHome } from '../pages/paginaHome';
 import { PaginaRegistro } from '../pages/paginaRegistro';
