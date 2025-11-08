@@ -12,11 +12,11 @@ let paginaLogin: PaginaLogin;
 
 dotenv.config();
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(({ page }) => {
   paginaHome = new PaginaHome(page);
   paginaRegistro = new PaginaRegistro(page);
   paginaLogin = new PaginaLogin(page);
-  helpers = new Helpers(page)
+  helpers = new Helpers(page);
 });
 
 
@@ -27,10 +27,10 @@ test('TC-3: Registro de estudiante (Sign up)', async ({ page }) => {
   await paginaRegistro.registrarEstudiante('Juan', 'Pérez', email, 'Password123');
   // Verificar que el registro fue exitoso
   // Verificar que el request a /api/students/register de tipo post devuelva un 201 antes de continuar
-  await helpers.esperarPorRespuestaAPI('/api/students/register', 'POST', 201)
+  await helpers.esperarPorRespuestaAPI('/api/students/register', 'POST', 201);
   await paginaRegistro.clickButtonModalIrIniciarSesion();
   await expect(page).toHaveURL(/.*login.*/);
   await paginaLogin.iniciarSesion(email, 'Password123');
-  await page.waitForTimeout(12000); // Espera exactamente 12 segundos
-  await helpers.verificarTextoVisible("Hola, Juan Pérez")
+  await page.waitForTimeout(11000); // Espera exactamente 11 segundos
+  await helpers.verificarTextoVisible("Hola, Juan Pérez");
 });
