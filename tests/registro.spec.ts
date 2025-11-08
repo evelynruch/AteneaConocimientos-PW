@@ -31,6 +31,6 @@ test('TC-3: Registro de estudiante (Sign up)', async ({ page }) => {
   await paginaRegistro.clickButtonModalIrIniciarSesion();
   await expect(page).toHaveURL(/.*login.*/);
   await paginaLogin.iniciarSesion(email, 'Password123');
-  await page.waitForTimeout(10000); // Espera exactamente 10 segundos
+  await page.waitForTimeout(12000); // Espera exactamente 12 segundos
   await helpers.verificarTextoVisible("Hola, Juan Pérez")
 });
