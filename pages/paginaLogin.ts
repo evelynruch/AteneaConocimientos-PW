@@ -1,4 +1,4 @@
-import {Locator, Page} from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
 export class PaginaLogin {
     readonly page: Page;
@@ -6,13 +6,11 @@ export class PaginaLogin {
     readonly txtBoxPassword: Locator;
     readonly botonIniciarSesion: Locator;
 
-    
-
     constructor(page: Page) {
         this.page = page;
         this.txtBoxCorreo = page.getByRole('textbox', { name: 'Correo Electrónico' });
         this.txtBoxPassword = page.getByRole('textbox', { name: 'Contraseña' });
-        this.botonIniciarSesion = page.getByRole('button', { name: 'Ingresar' })
+        this.botonIniciarSesion = page.getByRole('button', { name: 'Ingresar' });
     }
 
     async ingresarCorreo(correo: string) {
@@ -32,5 +30,4 @@ export class PaginaLogin {
         await this.ingresarPassword(password);
         await this.clickBotonIniciarSesion();
     }
-
-};
+}
