@@ -39,7 +39,7 @@
         "lint": "eslint . --ext .ts",
         "lint:fix": "npm run lint -- --fix",
         "format": "prettier \"**/*.{ts,js,json,md}\" --write",
-        "format:check": "npm run format -- --check",
+        "format:check": "prettier \"**/*.{ts,js,json,md}\" --check",
         "prepare": "husky"
     }
 }
