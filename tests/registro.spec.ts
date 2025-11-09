@@ -32,5 +32,4 @@ test('TC-3: Registro de estudiante (Sign up)', async ({ page }) => {
     await paginaLogin.iniciarSesion(email, 'Password123');
     await page.waitForTimeout(12000); // Espera exactamente 10 segundos
     await helpers.verificarTextoVisible('Hola, Juan Pérez');
-
 });
