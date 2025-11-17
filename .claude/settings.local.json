@@ -1,12 +1,7 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(npx tsc:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)"
-    ],
-    "deny": [],
-    "ask": []
-  }
+    "permissions": {
+        "allow": ["Bash(npx tsc:*)", "Bash(git add:*)", "Bash(git commit:*)", "Bash(git push:*)"],
+        "deny": [],
+        "ask": []
+    }
 }
