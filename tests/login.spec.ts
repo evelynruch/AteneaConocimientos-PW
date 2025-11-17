@@ -26,7 +26,6 @@ test('TC-1: Login Exitoso', { tag: '@smoke' }, async ({ page }) => {
     // Esperar un momento para asegurar que los campos estén llenos
     await page.waitForTimeout(3000);
 
-
     // Capturar la respuesta API antes de hacer clic para evitar race condition
     const [loginResponse] = await Promise.all([
         helpers.capturarYLoguearRespuestaAPI<LoginResponse>('/api/students/login', 'POST'),
@@ -46,7 +45,9 @@ test('TC-1: Login Exitoso', { tag: '@smoke' }, async ({ page }) => {
     const tokenParts = loginResponse.body.token.split('.');
     expect(tokenParts.length).toBe(3);
 
-    console.log(`✅ Token JWT recibido correctamente (${loginResponse.body.token.substring(0, 30)}...)`);
+    console.log(
+        `✅ Token JWT recibido correctamente (${loginResponse.body.token.substring(0, 30)}...)`,
+    );
 
     // NOTE: El frontend actualmente tiene un bug donde no redirige automáticamente al dashboard
     // después de un login exitoso, a pesar de recibir un token válido (200 OK).

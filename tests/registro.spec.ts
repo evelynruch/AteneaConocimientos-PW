@@ -57,7 +57,9 @@ test('TC-3: Registro de estudiante (Sign up)', { tag: '@smoke' }, async ({ page 
     const tokenParts = loginResponse.body.token.split('.');
     expect(tokenParts.length).toBe(3);
 
-    console.log(`✅ Token JWT recibido correctamente (${loginResponse.body.token.substring(0, 30)}...)`);
+    console.log(
+        `✅ Token JWT recibido correctamente (${loginResponse.body.token.substring(0, 30)}...)`,
+    );
 
     // NOTE: El frontend actualmente tiene un bug donde no redirige automáticamente al dashboard
     // después de un login exitoso, a pesar de recibir un token válido (200 OK).

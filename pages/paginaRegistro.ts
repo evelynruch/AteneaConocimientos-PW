@@ -31,7 +31,9 @@ export class PaginaRegistro {
             name: 'Política de Privacidad',
             exact: true,
         });
-        this.botonMostrarPassword = page.getByRole('button', { name: 'Mostrar contraseña' }).first();
+        this.botonMostrarPassword = page
+            .getByRole('button', { name: 'Mostrar contraseña' })
+            .first();
         this.botonMostrarConfirmPassword = page
             .getByRole('button', { name: 'Mostrar contraseña' })
             .last();

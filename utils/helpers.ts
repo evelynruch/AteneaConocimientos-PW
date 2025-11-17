@@ -66,8 +66,7 @@ export class Helpers {
         metodo: string,
     ): Promise<APIResponse<T>> {
         const response = await this.page.waitForResponse(
-            (response) =>
-                response.url().includes(url) && response.request().method() === metodo,
+            (response) => response.url().includes(url) && response.request().method() === metodo,
             { timeout: 30000 }, // Aumentar timeout a 30 segundos
         );
 
