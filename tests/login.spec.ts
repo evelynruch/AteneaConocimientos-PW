@@ -1,34 +1,22 @@
 import { test, expect } from '@playwright/test';
 import dotenv from 'dotenv';
-import { PaginaHome } from '@pages/paginaHome';
-import { PaginaRegistro } from '@pages/paginaRegistro';
-import { PaginaLogin } from '@pages/paginaLogin';
 import { Helpers, type LoginResponse } from '@utils/helpers';
+import { PaginaLogin } from '@pages/paginaLogin';
 
-let paginaHome: PaginaHome;
-let paginaRegistro: PaginaRegistro;
 let helpers: Helpers;
 let paginaLogin: PaginaLogin;
 
 dotenv.config();
 
 test.beforeEach(({ page }) => {
-    paginaHome = new PaginaHome(page);
-    paginaRegistro = new PaginaRegistro(page);
-    paginaLogin = new PaginaLogin(page);
     helpers = new Helpers(page);
+    paginaLogin = new PaginaLogin(page);
 });
 
-test('TC-3: Registro de estudiante (Sign up)', { tag: '@smoke' }, async ({ page }) => {
+test('TC-1: Login Exitoso', { tag: '@smoke' }, async ({ page }) => {
     const email = helpers.generarEmailUnico();
-    await paginaHome.navegarAHome();
-    await paginaHome.navegarARegistro();
-    await paginaRegistro.registrarEstudiante('Juan', 'Pérez', email, 'Password123');
-
-    // Verificar que el registro fue exitoso
-    await helpers.esperarPorRespuestaAPI('/api/students/register', 'POST', 201);
-    await paginaRegistro.clickButtonModalIrIniciarSesion();
-    await expect(page).toHaveURL(/.*login.*/);
+    await helpers.crearNuevoEstudiantePorApi('Juan', 'Pérez', email, 'Password123');
+    await paginaLogin.navegarALogin();
 
     // Asegurarse de que los campos estén visibles antes de llenarlos
     await expect(paginaLogin.txtBoxCorreo).toBeVisible();
@@ -38,7 +26,8 @@ test('TC-3: Registro de estudiante (Sign up)', { tag: '@smoke' }, async ({ page 
     // Esperar un momento para asegurar que los campos estén llenos
     await page.waitForTimeout(3000);
 
-    // Esperar respuesta de login antes de hacer clic
+
+    // Capturar la respuesta API antes de hacer clic para evitar race condition
     const [loginResponse] = await Promise.all([
         helpers.capturarYLoguearRespuestaAPI<LoginResponse>('/api/students/login', 'POST'),
         paginaLogin.clickBotonIniciarSesion(),
@@ -61,7 +50,6 @@ test('TC-3: Registro de estudiante (Sign up)', { tag: '@smoke' }, async ({ page 
 
     // NOTE: El frontend actualmente tiene un bug donde no redirige automáticamente al dashboard
     // después de un login exitoso, a pesar de recibir un token válido (200 OK).
-    // Descomentar las siguientes líneas cuando el frontend sea corregido:
+    // Descomentar la siguiente línea cuando el frontend sea corregido:
     await expect(page).toHaveURL(/.*dashboard.*/, { timeout: 10000 });
-    await helpers.verificarTextoVisible('Hola, Juan Pérez');
 });

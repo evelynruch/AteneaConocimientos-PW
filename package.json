@@ -30,7 +30,9 @@
     },
     "scripts": {
         "test": "playwright test",
+        "test:ui": "playwright test --ui",
         "test:qa": "TEST_ENV=qa npx playwright test",
+        "test:smoke": "playwright test --grep \"@smoke\" ",
         "test:headed": "playwright test --headed",
         "test:ci": "playwright test --reporter=line",
         "report:open": "playwright show-report",

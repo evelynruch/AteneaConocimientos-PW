@@ -12,11 +12,9 @@ export class PaginaRegistro {
     readonly checkboxTerminos: Locator;
     readonly linkTerminos: Locator;
     readonly linkPoliticaPrivacidad: Locator;
-    readonly buttonShowPassword: Locator;
-    readonly buttonShowConfirmPassword: Locator;
-    readonly buttonModalIrIniciarSesion: Locator;
-    // readonly buttonModalCerrar: Locator;
-    // readonly buttonIrAIniciarSesion: Locator;
+    readonly botonMostrarPassword: Locator;
+    readonly botonMostrarConfirmPassword: Locator;
+    readonly botonModalIrIniciarSesion: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -33,11 +31,11 @@ export class PaginaRegistro {
             name: 'Política de Privacidad',
             exact: true,
         });
-        this.buttonShowPassword = page.getByRole('button', { name: 'Mostrar contraseña' }).first();
-        this.buttonShowConfirmPassword = page
+        this.botonMostrarPassword = page.getByRole('button', { name: 'Mostrar contraseña' }).first();
+        this.botonMostrarConfirmPassword = page
             .getByRole('button', { name: 'Mostrar contraseña' })
             .last();
-        this.buttonModalIrIniciarSesion = page.getByRole('button', { name: 'Ir a iniciar sesión' });
+        this.botonModalIrIniciarSesion = page.getByRole('button', { name: 'Ir a iniciar sesión' });
     }
 
     async ingresarNombre(nombre: string) {
@@ -62,10 +60,12 @@ export class PaginaRegistro {
 
     async clickBotonRegistrarse() {
         await this.botonRegistrarse.click();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async clickLinkYaTengoCuenta() {
         await this.linkYaTengoCuenta.click();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async checkTerminos() {
@@ -81,11 +81,11 @@ export class PaginaRegistro {
     }
 
     async toggleShowPassword() {
-        await this.buttonShowPassword.click();
+        await this.botonMostrarPassword.click();
     }
 
     async toggleShowConfirmPassword() {
-        await this.buttonShowConfirmPassword.click();
+        await this.botonMostrarConfirmPassword.click();
     }
 
     async registrarEstudiante(nombre: string, apellido: string, email: string, password: string) {
@@ -99,6 +99,7 @@ export class PaginaRegistro {
     }
 
     async clickButtonModalIrIniciarSesion() {
-        await this.buttonModalIrIniciarSesion.click();
+        await this.botonModalIrIniciarSesion.click();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 }

@@ -11,9 +11,11 @@ export class PaginaHome {
 
     async navegarAHome() {
         await this.page.goto('/');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async navegarARegistro() {
         await this.botonCrearCuenta.click();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 }

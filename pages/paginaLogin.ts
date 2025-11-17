@@ -25,9 +25,15 @@ export class PaginaLogin {
         await this.botonIniciarSesion.click();
     }
 
+    async navegarALogin() {
+        await this.page.goto('/login');
+        await this.page.waitForLoadState('domcontentloaded');
+    }
+
     async iniciarSesion(correo: string, password: string) {
         await this.ingresarCorreo(correo);
         await this.ingresarPassword(password);
         await this.clickBotonIniciarSesion();
+        await this.page.waitForLoadState('domcontentloaded');
     }
 }
