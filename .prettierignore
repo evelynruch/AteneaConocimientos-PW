@@ -1,0 +1,8 @@
+# Excluir archivos de chatmode con emojis que causan problemas de formato
+.github/chatmodes/*.chatmode.md
+
+# Archivos generados
+node_modules/
+dist/
+build/
+coverage/
