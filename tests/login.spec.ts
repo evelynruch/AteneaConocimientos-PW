@@ -24,7 +24,7 @@ test('TC-1: Login Exitoso', { tag: '@smoke' }, async ({ page }) => {
     await paginaLogin.ingresarPassword('Password123');
 
     // Esperar un momento para asegurar que los campos estén llenos
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(5000);
 
     // Capturar la respuesta API antes de hacer clic para evitar race condition
     const [loginResponse] = await Promise.all([
