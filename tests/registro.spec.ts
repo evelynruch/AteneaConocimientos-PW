@@ -36,7 +36,7 @@ test('TC-3: Registro de estudiante (Sign up)', { tag: '@smoke' }, async ({ page 
     await paginaLogin.ingresarPassword('Password123');
 
     // Esperar un momento para asegurar que los campos estén llenos
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(5000);
 
     // Esperar respuesta de login antes de hacer clic
     const [loginResponse] = await Promise.all([

@@ -140,7 +140,7 @@ jobs:
                     traces=()
                   fi
                   if [ "${#traces[@]}" -gt 0 ]; then
-                    zip -j "$trace_bundle" "${traces[@]}"
+                    zip "$trace_bundle" "${traces[@]}"
                   else
                     echo "No trace files generated." > artifacts/trace-info.txt
                     zip -j "$trace_bundle" artifacts/trace-info.txt
