@@ -241,12 +241,12 @@ jobs:
 
                   if [ "$JOB_STATUS" = "success" ]; then
                     status_emoji="✅"
-                    status_text="Exitoso"
-                    status_color="good"
+                    status_text="Passed"
+                    status_color="#2eb886"
                   else
                     status_emoji="❌"
-                    status_text="Fallido"
-                    status_color="danger"
+                    status_text="Failed"
+                    status_color="#a30200"
                   fi
 
                   payload=$(jq -n \
@@ -260,7 +260,7 @@ jobs:
                     --arg report "$report_url" \
                     --arg history "$history_url" \
                     '{
-                      text: "[Playwright] Estado: \($status)",
+                      text: "Estado: \($status)",
                       attachments: [
                         {
                           color: $color,
