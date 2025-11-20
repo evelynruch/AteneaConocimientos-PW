@@ -237,22 +237,63 @@ jobs:
                   folder_name=$(cat folder_name.txt)
                   base_url="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}"
                   report_url="${base_url}/${folder_name}/"
-                  latest_url="${base_url}/latest/"
+                  history_url="https://evelynruch.github.io/AteneaConocimientos-PW/"
+
+                  if [ "$JOB_STATUS" = "success" ]; then
+                    status_emoji="✅"
+                    status_text="Passed"
+                    status_color="#2eb886"
+                  else
+                    status_emoji="❌"
+                    status_text="Failed"
+                    status_color="#a30200"
+                  fi
 
                   payload=$(jq -n \
-                    --arg status "$JOB_STATUS" \
+                    --arg status "$status_text" \
+                    --arg emoji "$status_emoji" \
+                    --arg color "$status_color" \
                     --arg repo "$REPO" \
                     --arg branch "$BRANCH" \
                     --arg actor "$ACTOR" \
                     --arg runurl "$RUN_URL" \
                     --arg report "$report_url" \
-                    --arg latest "$latest_url" \
+                    --arg history "$history_url" \
                     '{
-                      text: "[Playwright] Estado: \($status)",
-                      blocks: [
-                        { type: "section",
-                          text: { type: "mrkdwn",
-                            text: "*Playwright CI \($status)*\nRepositorio: `\($repo)`\nRama: `\($branch)`\nDisparado por: `\($actor)`\n<\($runurl)|Ver ejecución>\n<\($report)|Ver reporte actual>\n<\($latest)|Ver el último reporte>" }
+                      text: "Estado: \($status)",
+                      attachments: [
+                        {
+                          color: $color,
+                          blocks: [
+                            { 
+                              type: "header",
+                              text: { 
+                                type: "plain_text",
+                                text: "\($emoji) Playwright Tests - \($status)"
+                              }
+                            },
+                            { 
+                              type: "section",
+                              fields: [
+                                { type: "mrkdwn", text: "*Repositorio:*\n`\($repo)`" },
+                                { type: "mrkdwn", text: "*Rama:*\n`\($branch)`" },
+                                { type: "mrkdwn", text: "*Disparado por:*\n`\($actor)`" },
+                                { type: "mrkdwn", text: "*Estado:*\n\($status)" }
+                              ]
+                            },
+                            { 
+                              type: "divider" 
+                            },
+                            { 
+                              type: "context",
+                              elements: [
+                                { 
+                                  type: "mrkdwn", 
+                                  text: "<\($runurl)|Pipeline> • <\($report)|Ultimo Reporte> • <\($history)|Historial de Reportes>" 
+                                }
+                              ]
+                            }
+                          ]
                         }
                       ]
                     }')
